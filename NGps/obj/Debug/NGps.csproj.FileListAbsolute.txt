@@ -1,0 +1,5 @@
+C:\Users\Alex\Documents\Visual Studio 2012\Projects\NGps\NGps\bin\Debug\NGps.dll
+C:\Users\Alex\Documents\Visual Studio 2012\Projects\NGps\NGps\bin\Debug\NGps.pdb
+C:\Users\Alex\Documents\Visual Studio 2012\Projects\NGps\NGps\obj\Debug\NGps.csprojResolveAssemblyReference.cache
+C:\Users\Alex\Documents\Visual Studio 2012\Projects\NGps\NGps\obj\Debug\NGps.dll
+C:\Users\Alex\Documents\Visual Studio 2012\Projects\NGps\NGps\obj\Debug\NGps.pdb
