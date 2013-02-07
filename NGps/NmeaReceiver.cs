@@ -270,12 +270,12 @@ namespace NGps
 
                 if (parts.Length < 2)
                 {
-                    return;
+                    continue;
                 }
 
                 if (!VerifyChecksum(parts[0], parts[1]))
                 {
-                    return;
+                    continue;
                 }
 
                 string[] values = parts[0].Split(Comma);
@@ -304,9 +304,6 @@ namespace NGps
 
                     case "GPVTG":
                         this.OnGpvtgReceived(new GpvtgReceivedEventArgs(values));
-                        break;
-
-                    default:
                         break;
                 }
             }

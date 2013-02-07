@@ -99,6 +99,14 @@ namespace NGps
 
         public GpggaReceivedEventArgs(string[] values)
         {
+            foreach (string value in values)
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    return;
+                }
+            }
+
             if (String.Compare(values[0], "GPGGA", true) != 0 || values.Length != 15)
             {
                 throw new ArgumentException("Invalid GPGGA sentence.", "values");
