@@ -39,12 +39,16 @@ namespace NGps
         private static readonly char[] Comma = new char[] { ',' };
         private static readonly char[] Asterisk = new char[] { '*' };
 
-        private static string AquirePort()
+        private static string AcquirePort()
         {
             foreach (string name in SerialPort.GetPortNames())
             {
                 SerialPort port = new SerialPort(name, 4800, Parity.None, 8, StopBits.One);
-                port.ReadTimeout = (int)Timeout.TotalMilliseconds;
+
+                checked
+                {
+                    port.ReadTimeout = (int)Timeout.TotalMilliseconds;
+                }
 
                 try
                 {
@@ -57,7 +61,7 @@ namespace NGps
 
                 DateTime target = DateTime.Now + Timeout;
 
-                while (DateTime.Now < target)
+                while (DateTime.Now <= target)
                 {
                     string message;
 
@@ -131,7 +135,7 @@ namespace NGps
         public event EventHandler<GpvtgReceivedEventArgs> GpvtgReceived;
 
         public NmeaReceiver()
-            : this(AquirePort())
+            : this(AcquirePort())
         { }
 
         public NmeaReceiver(string portName)
@@ -160,72 +164,89 @@ namespace NGps
 
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing)
+            if (!disposing)
+            {
+                return;
+            }
+
+            if (this.listening == 1)
             {
                 this.Stop();
-
-                this.port.Dispose();
             }
+
+            this.port.Dispose();
         }
 
         private void OnGpggaReceived(GpggaReceivedEventArgs args)
         {
             EventHandler<GpggaReceivedEventArgs> callback = this.GpggaReceived;
 
-            if (!Object.ReferenceEquals(callback, null))
+            if (Object.ReferenceEquals(callback, null))
             {
-                callback(this, args);
+                return;
             }
+
+            callback(this, args);
         }
 
         private void OnGpgllReceived(GpgllReceivedEventArgs args)
         {
             EventHandler<GpgllReceivedEventArgs> callback = this.GpgllReceived;
 
-            if (!Object.ReferenceEquals(callback, null))
+            if (Object.ReferenceEquals(callback, null))
             {
-                callback(this, args);
+                return;
             }
+
+            callback(this, args);
         }
 
         private void OnGpgsaReceived(GpgsaReceivedEventArgs args)
         {
             EventHandler<GpgsaReceivedEventArgs> callback = this.GpgsaReceived;
 
-            if (!Object.ReferenceEquals(callback, null))
+            if (Object.ReferenceEquals(callback, null))
             {
-                callback(this, args);
+                return;
             }
+
+            callback(this, args);
         }
 
         private void OnGpgsvReceived(GpgsvReceivedEventArgs args)
         {
             EventHandler<GpgsvReceivedEventArgs> callback = this.GpgsvReceived;
 
-            if (!Object.ReferenceEquals(callback, null))
+            if (Object.ReferenceEquals(callback, null))
             {
-                callback(this, args);
+                return;
             }
+
+            callback(this, args);
         }
 
         private void OnGprmcReceived(GprmcReceivedEventArgs args)
         {
             EventHandler<GprmcReceivedEventArgs> callback = this.GprmcReceived;
 
-            if (!Object.ReferenceEquals(callback, null))
+            if (Object.ReferenceEquals(callback, null))
             {
-                callback(this, args);
+                return;
             }
+
+            callback(this, args);
         }
 
         private void OnGpvtgReceived(GpvtgReceivedEventArgs args)
         {
             EventHandler<GpvtgReceivedEventArgs> callback = this.GpvtgReceived;
 
-            if (!Object.ReferenceEquals(callback, null))
+            if (Object.ReferenceEquals(callback, null))
             {
-                callback(this, args);
+                return;
             }
+
+            callback(this, args);
         }
 
         public void Read()
@@ -240,82 +261,93 @@ namespace NGps
                 }
                 catch
                 {
-                    throw new DeviceNotFoundException("Cannot locate NMEA device.");
+                    throw new DeviceNotFoundException("Cannot locate an NMEA device.");
                 }
 
                 message = message.Replace("$", String.Empty);
 
                 string[] parts = message.Split(Asterisk);
 
-                if (VerifyChecksum(parts[0], parts[1]))
+                if (parts.Length < 2)
                 {
-                    string[] values = parts[0].Split(Comma);
+                    return;
+                }
 
-                    switch (values[0])
-                    {
-                        case "GPGGA":
-                            this.OnGpggaReceived(new GpggaReceivedEventArgs(values));
-                            break;
+                if (!VerifyChecksum(parts[0], parts[1]))
+                {
+                    return;
+                }
 
-                        case "GPGLL":
-                            this.OnGpgllReceived(new GpgllReceivedEventArgs(values));
-                            break;
+                string[] values = parts[0].Split(Comma);
 
-                        case "GPGSA":
-                            this.OnGpgsaReceived(new GpgsaReceivedEventArgs(values));
-                            break;
+                switch (values[0])
+                {
+                    case "GPGGA":
+                        this.OnGpggaReceived(new GpggaReceivedEventArgs(values));
+                        break;
 
-                        case "GPGSV":
-                            this.OnGpgsvReceived(new GpgsvReceivedEventArgs(values));
-                            break;
+                    case "GPGLL":
+                        this.OnGpgllReceived(new GpgllReceivedEventArgs(values));
+                        break;
 
-                        case "GPRMC":
-                            this.OnGprmcReceived(new GprmcReceivedEventArgs(values));
-                            break;
+                    case "GPGSA":
+                        this.OnGpgsaReceived(new GpgsaReceivedEventArgs(values));
+                        break;
 
-                        case "GPVTG":
-                            this.OnGpvtgReceived(new GpvtgReceivedEventArgs(values));
-                            break;
+                    case "GPGSV":
+                        this.OnGpgsvReceived(new GpgsvReceivedEventArgs(values));
+                        break;
 
-                        default:
-                            break;
-                    }
+                    case "GPRMC":
+                        this.OnGprmcReceived(new GprmcReceivedEventArgs(values));
+                        break;
+
+                    case "GPVTG":
+                        this.OnGpvtgReceived(new GpvtgReceivedEventArgs(values));
+                        break;
+
+                    default:
+                        break;
                 }
             }
         }
 
-        public void Listen()
+        public void Start()
         {
-            if (Interlocked.CompareExchange(ref this.listening, 1, 0) == 0)
+            if (Interlocked.CompareExchange(ref this.listening, 1, 0) == 1)
             {
-                if (this.worker.Status != TaskStatus.Running)
-                {
-                    try
-                    {
-                        this.port.Open();
-                    }
-                    catch
-                    {
-                        throw new DeviceNotFoundException("Cannot locate NMEA device.");
-                    }
-
-                    this.worker.Start();
-                }
+                throw new InvalidOperationException("The receiver is already started.");
             }
+
+            if (this.worker.Status == TaskStatus.Running)
+            {
+                return;
+            }
+
+            try
+            {
+                this.port.Open();
+            }
+            catch
+            {
+                throw new DeviceNotFoundException("No device is connected to the port.");
+            }
+
+            this.worker.Start();
         }
 
         public void Stop()
         {
-            if (Interlocked.CompareExchange(ref this.listening, 0, 1) == 1)
+            if (Interlocked.CompareExchange(ref this.listening, 0, 1) == 0)
             {
-                if (this.worker.Status == TaskStatus.Running)
-                {
-                    this.tokenSource.Cancel();
+                throw new InvalidOperationException("The receiver is already stopped.");
+            }
 
-                    this.worker.Wait();
-
-                    this.port.Close();
-                }
+            if (this.worker.Status == TaskStatus.Running)
+            {
+                this.tokenSource.Cancel();
+                this.worker.Wait();
+                this.port.Close();
             }
         }
 
