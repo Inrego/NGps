@@ -83,8 +83,16 @@ namespace NGps
             this.Prns = new List<int>();
 
             this.Identifier = values[0];
-            this.Mode = values[1];
-            this.Quality = Int32.Parse(values[2]);
+
+            if (!String.IsNullOrEmpty(values[1]))
+            {
+                this.Mode = values[1];
+            }
+
+            if (!String.IsNullOrEmpty(values[2]))
+            {
+                this.Quality = Int32.Parse(values[2]);
+            }
 
             for (int i = 3; i < 15; i++)
             {
@@ -94,9 +102,20 @@ namespace NGps
                 }
             }
 
-            this.Pdop = Single.Parse(values[15]);
-            this.Hdop = Single.Parse(values[16]);
-            this.Vdop = Single.Parse(values[17]);
+            if (!String.IsNullOrEmpty(values[15]))
+            {
+                this.Pdop = Single.Parse(values[15]);
+            }
+
+            if (!String.IsNullOrEmpty(values[16]))
+            {
+                this.Hdop = Single.Parse(values[16]);
+            }
+
+            if (!String.IsNullOrEmpty(values[17]))
+            {
+                this.Vdop = Single.Parse(values[17]);
+            }
         }
     }
 }

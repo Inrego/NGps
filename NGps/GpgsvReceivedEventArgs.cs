@@ -71,9 +71,21 @@ namespace NGps
             this.Satellites = new List<Satellite>();
 
             this.Identifier = values[0];
-            this.SentenceCount = Int32.Parse(values[1]);
-            this.SentenceId = Int32.Parse(values[2]);
-            this.SatelliteCount = Int32.Parse(values[3]);
+
+            if (!String.IsNullOrEmpty(values[1]))
+            {
+                this.SentenceCount = Int32.Parse(values[1]);
+            }
+
+            if (!String.IsNullOrEmpty(values[2]))
+            {
+                this.SentenceId = Int32.Parse(values[2]);
+            }
+
+            if (!String.IsNullOrEmpty(values[3]))
+            {
+                this.SatelliteCount = Int32.Parse(values[3]);
+            }
 
             for (int i = 4, count = 0; count < (values.Length / 4) - 1; i += 4, count++)
             {

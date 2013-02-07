@@ -68,6 +68,8 @@ namespace NGps
                 throw new ArgumentException("Invalid GPGLL sentence.", "values");
             }
 
+            this.Identifier = values[0];
+
             if (!String.IsNullOrEmpty(values[1]))
             {
                 this.Latitude = Single.Parse(values[1].Substring(0, 2)) + (Single.Parse(values[1].Substring(2, values[1].Length - 2)) / 60.0f);
@@ -88,8 +90,15 @@ namespace NGps
                 }
             }
 
-            this.Time = DateTime.UtcNow.Date.Add(TimeSpan.ParseExact(values[5], @"hhmmss\.fff", CultureInfo.InvariantCulture));
-            this.Status = values[6];
+            if (!String.IsNullOrEmpty(values[5]))
+            {
+                this.Time = DateTime.UtcNow.Date.Add(TimeSpan.ParseExact(values[5], @"hhmmss\.fff", CultureInfo.InvariantCulture));
+            }
+
+            if (!String.IsNullOrEmpty(values[6]))
+            {
+                this.Status = values[6];
+            }
         }
     }
 }
