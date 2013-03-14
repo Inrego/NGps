@@ -79,7 +79,7 @@ namespace NGps
             private set;
         }
 
-        public string FixType
+        public FixType Mode
         {
             get;
             private set;
@@ -146,7 +146,28 @@ namespace NGps
 
             if (!String.IsNullOrEmpty(values[12]))
             {
-                this.FixType = values[12];
+                switch (values[12])
+                {
+                    case "A":
+                        this.Mode = FixType.Autonomous;
+                        break;
+
+                    case "D":
+                        this.Mode = FixType.Differential;
+                        break;
+
+                    case "E":
+                        this.Mode = FixType.Estimated;
+                        break;
+
+                    case "S":
+                        this.Mode = FixType.Simulator;
+                        break;
+
+                    default:
+                        this.Mode = FixType.Invalid;
+                        break;
+                }
             }
         }
     }

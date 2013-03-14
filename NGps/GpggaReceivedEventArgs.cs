@@ -55,7 +55,7 @@ namespace NGps
             private set;
         }
 
-        public int Quality
+        public PositionFixType Quality
         {
             get;
             private set;
@@ -133,7 +133,7 @@ namespace NGps
 
             if (!String.IsNullOrEmpty(values[6]))
             {
-                this.Quality = Int32.Parse(values[6]);
+                this.Quality = (PositionFixType)Enum.Parse(typeof(PositionFixType), values[6]);
             }
 
             if (!String.IsNullOrEmpty(values[7]))

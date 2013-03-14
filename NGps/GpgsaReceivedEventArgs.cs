@@ -37,13 +37,13 @@ namespace NGps
             private set;
         }
 
-        public string Mode
+        public ModeType Mode
         {
             get;
             private set;
         }
 
-        public int Quality
+        public QualityType Quality
         {
             get;
             private set;
@@ -86,12 +86,21 @@ namespace NGps
 
             if (!String.IsNullOrEmpty(values[1]))
             {
-                this.Mode = values[1];
+                switch (values[1])
+                {
+                    case "A":
+                        this.Mode = ModeType.Automatic;
+                        break;
+
+                    case "M":
+                        this.Mode = ModeType.Manual;
+                        break;
+                }
             }
 
             if (!String.IsNullOrEmpty(values[2]))
             {
-                this.Quality = Int32.Parse(values[2]);
+                this.Quality = (QualityType)Enum.Parse(typeof(QualityType), values[2]);
             }
 
             for (int i = 3; i < 15; i++)
