@@ -41,7 +41,7 @@ namespace Nmea.TestEnviroment
             receiver.GprmcReceived += OnGprmcReceived;
             receiver.GpvtgReceived += OnGpvtgReceived;
 
-            receiver.Start();
+            receiver.Listen();
 
             Console.ReadLine();
         }

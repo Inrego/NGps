@@ -85,9 +85,20 @@ namespace NGps
                 this.MagneticBearing = Single.Parse(values[3]);
             }
 
-            this.KnotsSpeed = Single.Parse(values[5]);
-            this.KphSpeed = Single.Parse(values[7]);
-            this.FixType = values[9];
+            if (!String.IsNullOrEmpty(values[5]))
+            {
+                this.KnotsSpeed = Single.Parse(values[5]);
+            }
+
+            if (!String.IsNullOrEmpty(values[7]))
+            {
+                this.KphSpeed = Single.Parse(values[7]);
+            }
+
+            if (!String.IsNullOrEmpty(values[9]))
+            {
+                this.FixType = values[9];
+            }
         }
     }
 }

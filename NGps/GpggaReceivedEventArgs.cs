@@ -99,21 +99,17 @@ namespace NGps
 
         public GpggaReceivedEventArgs(string[] values)
         {
-            foreach (string value in values)
-            {
-                if (String.IsNullOrEmpty(value))
-                {
-                    return;
-                }
-            }
-
             if (String.Compare(values[0], "GPGGA", true) != 0 || values.Length != 15)
             {
                 throw new ArgumentException("Invalid GPGGA sentence.", "values");
             }
 
             this.Identifier = values[0];
-            this.Time = DateTime.UtcNow.Date.Add(TimeSpan.ParseExact(values[1], @"hhmmss\.fff", CultureInfo.InvariantCulture));
+
+            if (!String.IsNullOrEmpty(values[2]))
+            {
+                this.Time = DateTime.UtcNow.Date.Add(TimeSpan.ParseExact(values[1], @"hhmmss\.fff", CultureInfo.InvariantCulture));
+            }
 
             if (!String.IsNullOrEmpty(values[2]))
             {
@@ -135,18 +131,40 @@ namespace NGps
                 }
             }
 
-            this.Quality = Int32.Parse(values[6]);
-            this.Satellites = Int32.Parse(values[7]);
-            this.Hdop = Single.Parse(values[8]);
-            this.Altitude = Single.Parse(values[9]);
-            this.GeoidalSeperation = Single.Parse(values[11]);
+            if (!String.IsNullOrEmpty(values[6]))
+            {
+                this.Quality = Int32.Parse(values[6]);
+            }
+
+            if (!String.IsNullOrEmpty(values[7]))
+            {
+                this.Satellites = Int32.Parse(values[7]);
+            }
+
+            if (!String.IsNullOrEmpty(values[8]))
+            {
+                this.Hdop = Single.Parse(values[8]);
+            }
+
+            if (!String.IsNullOrEmpty(values[9]))
+            {
+                this.Altitude = Single.Parse(values[9]);
+            }
+
+            if (!String.IsNullOrEmpty(values[11]))
+            {
+                this.GeoidalSeperation = Single.Parse(values[11]);
+            }
 
             if (!String.IsNullOrEmpty(values[13]))
             {
                 this.Age = Single.Parse(values[13]);
             }
 
-            this.StationId = Int32.Parse(values[14]);
+            if (!String.IsNullOrEmpty(values[14]))
+            {
+                this.StationId = Int32.Parse(values[14]);
+            }
         }
     }
 }

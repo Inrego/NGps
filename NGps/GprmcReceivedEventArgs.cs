@@ -93,8 +93,16 @@ namespace NGps
             }
 
             this.Identifier = values[0];
-            this.DateTime = DateTime.ParseExact(values[9], "ddMMyy", CultureInfo.InvariantCulture).Add(TimeSpan.ParseExact(values[1], @"hhmmss\.fff", CultureInfo.InvariantCulture));
-            this.Status = values[2];
+
+            if (!String.IsNullOrEmpty(values[1]) && !String.IsNullOrEmpty(values[9]))
+            {
+                this.DateTime = DateTime.ParseExact(values[9], "ddMMyy", CultureInfo.InvariantCulture).Add(TimeSpan.ParseExact(values[1], @"hhmmss\.fff", CultureInfo.InvariantCulture));
+            }
+
+            if (!String.IsNullOrEmpty(values[2]))
+            {
+                this.Status = values[2];
+            }
 
             if (!String.IsNullOrEmpty(values[3]))
             {
@@ -116,8 +124,15 @@ namespace NGps
                 }
             }
 
-            this.KnotsSpeed = Single.Parse(values[7]);
-            this.TrueBearing = Single.Parse(values[8]);
+            if (!String.IsNullOrEmpty(values[7]))
+            {
+                this.KnotsSpeed = Single.Parse(values[7]);
+            }
+
+            if (!String.IsNullOrEmpty(values[8]))
+            {
+                this.TrueBearing = Single.Parse(values[8]);
+            }
 
             if (!String.IsNullOrEmpty(values[10]))
             {
@@ -129,7 +144,10 @@ namespace NGps
                 }
             }
 
-            this.FixType = values[12];
+            if (!String.IsNullOrEmpty(values[12]))
+            {
+                this.FixType = values[12];
+            }
         }
     }
 }
