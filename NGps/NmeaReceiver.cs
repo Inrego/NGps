@@ -247,6 +247,11 @@ namespace NGps
 
                 string[] parts = message.Split(Asterisk);
 
+                if (parts.Length != 2)
+                {
+                    continue;
+                }
+
                 if (VerifyChecksum(parts[0], parts[1]))
                 {
                     string[] values = parts[0].Split(Comma);

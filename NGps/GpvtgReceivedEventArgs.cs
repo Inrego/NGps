@@ -97,7 +97,7 @@ namespace NGps
 
             if (!String.IsNullOrEmpty(values[9]))
             {
-                switch (values[12])
+                switch (values[9])
                 {
                     case "A":
                         this.Mode = FixType.Autonomous;
