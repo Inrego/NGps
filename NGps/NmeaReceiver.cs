@@ -228,7 +228,7 @@ namespace NGps
             }
         }
 
-        public void Read()
+        private void Read()
         {
             while (this.listening == 1)
             {
