@@ -6,3 +6,11 @@ C:\Users\Alex\Documents\Visual Studio 2012\Projects\NGps\NGps.TestEnviroment\bin
 C:\Users\Alex\Documents\Visual Studio 2012\Projects\NGps\NGps.TestEnviroment\obj\Debug\NGps.TestEnviroment.csprojResolveAssemblyReference.cache
 C:\Users\Alex\Documents\Visual Studio 2012\Projects\NGps\NGps.TestEnviroment\obj\Debug\NGps.TestEnviroment.exe
 C:\Users\Alex\Documents\Visual Studio 2012\Projects\NGps\NGps.TestEnviroment\obj\Debug\NGps.TestEnviroment.pdb
+C:\Users\Inrego\Documents\GitHub\NGps\NGps.TestEnviroment\bin\Debug\NGps.TestEnviroment.exe.config
+C:\Users\Inrego\Documents\GitHub\NGps\NGps.TestEnviroment\bin\Debug\NGps.TestEnviroment.exe
+C:\Users\Inrego\Documents\GitHub\NGps\NGps.TestEnviroment\bin\Debug\NGps.TestEnviroment.pdb
+C:\Users\Inrego\Documents\GitHub\NGps\NGps.TestEnviroment\bin\Debug\NGps.dll
+C:\Users\Inrego\Documents\GitHub\NGps\NGps.TestEnviroment\bin\Debug\NGps.pdb
+C:\Users\Inrego\Documents\GitHub\NGps\NGps.TestEnviroment\obj\Debug\NGps.TestEnviroment.csprojResolveAssemblyReference.cache
+C:\Users\Inrego\Documents\GitHub\NGps\NGps.TestEnviroment\obj\Debug\NGps.TestEnviroment.exe
+C:\Users\Inrego\Documents\GitHub\NGps\NGps.TestEnviroment\obj\Debug\NGps.TestEnviroment.pdb

@@ -110,10 +110,10 @@ namespace NGps
             {
                 this.Time = DateTime.UtcNow.Date.Add(TimeSpan.ParseExact(values[1], @"hhmmss\.fff", CultureInfo.InvariantCulture));
             }
-
+            var numberFormat = new NumberFormatInfo {NumberDecimalSeparator = "."};
             if (!String.IsNullOrEmpty(values[2]))
             {
-                this.Latitude = Single.Parse(values[2].Substring(0, 2)) + (Single.Parse(values[2].Substring(2, values[2].Length - 2)) / 60.0f);
+                this.Latitude = Single.Parse(values[2].Substring(0, 2), numberFormat) + (Single.Parse(values[2].Substring(2, values[2].Length - 2), numberFormat) / 60.0f);
 
                 if (values[3] == "S")
                 {
@@ -121,9 +121,9 @@ namespace NGps
                 }
             }
 
-            if (!String.IsNullOrEmpty(values[3]))
+            if (!String.IsNullOrEmpty(values[4]))
             {
-                this.Longitude = Single.Parse(values[4].Substring(0, 3)) + (Single.Parse(values[4].Substring(3, values[4].Length - 3)) / 60.0f);
+                this.Longitude = Single.Parse(values[4].Substring(0, 3), numberFormat) + (Single.Parse(values[4].Substring(3, values[4].Length - 3), numberFormat) / 60.0f);
 
                 if (values[5] == "W")
                 {
@@ -138,32 +138,32 @@ namespace NGps
 
             if (!String.IsNullOrEmpty(values[7]))
             {
-                this.Satellites = Int32.Parse(values[7]);
+                this.Satellites = Int32.Parse(values[7], numberFormat);
             }
 
             if (!String.IsNullOrEmpty(values[8]))
             {
-                this.Hdop = Single.Parse(values[8]);
+                this.Hdop = Single.Parse(values[8], numberFormat);
             }
 
             if (!String.IsNullOrEmpty(values[9]))
             {
-                this.Altitude = Single.Parse(values[9]);
+                this.Altitude = Single.Parse(values[9], numberFormat);
             }
 
             if (!String.IsNullOrEmpty(values[11]))
             {
-                this.GeoidalSeperation = Single.Parse(values[11]);
+                this.GeoidalSeperation = Single.Parse(values[11], numberFormat);
             }
 
             if (!String.IsNullOrEmpty(values[13]))
             {
-                this.Age = Single.Parse(values[13]);
+                this.Age = Single.Parse(values[13], numberFormat);
             }
 
             if (!String.IsNullOrEmpty(values[14]))
             {
-                this.StationId = Int32.Parse(values[14]);
+                this.StationId = Int32.Parse(values[14], numberFormat);
             }
         }
     }

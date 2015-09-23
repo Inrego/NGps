@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace NGps
 {
@@ -102,28 +103,28 @@ namespace NGps
             {
                 this.Quality = (QualityType)Enum.Parse(typeof(QualityType), values[2]);
             }
-
+            var numberFormat = new NumberFormatInfo { NumberDecimalSeparator = "." };
             for (int i = 3; i < 15; i++)
             {
                 if (!String.IsNullOrEmpty(values[i]))
                 {
-                    this.Prns.Add(Int32.Parse(values[i]));
+                    this.Prns.Add(Int32.Parse(values[i], numberFormat));
                 }
             }
 
             if (!String.IsNullOrEmpty(values[15]))
             {
-                this.Pdop = Single.Parse(values[15]);
+                this.Pdop = Single.Parse(values[15], numberFormat);
             }
 
             if (!String.IsNullOrEmpty(values[16]))
             {
-                this.Hdop = Single.Parse(values[16]);
+                this.Hdop = Single.Parse(values[16], numberFormat);
             }
 
             if (!String.IsNullOrEmpty(values[17]))
             {
-                this.Vdop = Single.Parse(values[17]);
+                this.Vdop = Single.Parse(values[17], numberFormat);
             }
         }
     }

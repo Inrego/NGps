@@ -69,10 +69,10 @@ namespace NGps
             }
 
             this.Identifier = values[0];
-
+            var numberFormat = new NumberFormatInfo { NumberDecimalSeparator = "." };
             if (!String.IsNullOrEmpty(values[1]))
             {
-                this.Latitude = Single.Parse(values[1].Substring(0, 2)) + (Single.Parse(values[1].Substring(2, values[1].Length - 2)) / 60.0f);
+                this.Latitude = Single.Parse(values[1].Substring(0, 2), numberFormat) + (Single.Parse(values[1].Substring(2, values[1].Length - 2), numberFormat) / 60.0f);
 
                 if (values[2] == "S")
                 {
@@ -82,7 +82,7 @@ namespace NGps
 
             if (!String.IsNullOrEmpty(values[3]))
             {
-                this.Longitude = Single.Parse(values[3].Substring(0, 3)) + (Single.Parse(values[3].Substring(3, values[3].Length - 3)) / 60.0f);
+                this.Longitude = Single.Parse(values[3].Substring(0, 3), numberFormat) + (Single.Parse(values[3].Substring(3, values[3].Length - 3), numberFormat) / 60.0f);
 
                 if (values[4] == "W")
                 {

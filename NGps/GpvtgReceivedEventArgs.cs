@@ -25,6 +25,7 @@
 #endregion
 
 using System;
+using System.Globalization;
 
 namespace NGps
 {
@@ -74,25 +75,25 @@ namespace NGps
             }
 
             this.Identifier = values[0];
-
+            var numberFormat = new NumberFormatInfo { NumberDecimalSeparator = "." };
             if (!String.IsNullOrEmpty(values[1]))
             {
-                this.TrueBearing = Single.Parse(values[1]);
+                this.TrueBearing = Single.Parse(values[1], numberFormat);
             }
 
             if (!String.IsNullOrEmpty(values[3]))
             {
-                this.MagneticBearing = Single.Parse(values[3]);
+                this.MagneticBearing = Single.Parse(values[3], numberFormat);
             }
 
             if (!String.IsNullOrEmpty(values[5]))
             {
-                this.KnotsSpeed = Single.Parse(values[5]);
+                this.KnotsSpeed = Single.Parse(values[5], numberFormat);
             }
 
             if (!String.IsNullOrEmpty(values[7]))
             {
-                this.KphSpeed = Single.Parse(values[7]);
+                this.KphSpeed = Single.Parse(values[7], numberFormat);
             }
 
             if (!String.IsNullOrEmpty(values[9]))

@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace NGps
 {
@@ -71,32 +72,32 @@ namespace NGps
             this.Satellites = new List<Satellite>();
 
             this.Identifier = values[0];
-
+            var numberFormat = new NumberFormatInfo { NumberDecimalSeparator = "." };
             if (!String.IsNullOrEmpty(values[1]))
             {
-                this.SentenceCount = Int32.Parse(values[1]);
+                this.SentenceCount = Int32.Parse(values[1], numberFormat);
             }
 
             if (!String.IsNullOrEmpty(values[2]))
             {
-                this.SentenceId = Int32.Parse(values[2]);
+                this.SentenceId = Int32.Parse(values[2], numberFormat);
             }
 
             if (!String.IsNullOrEmpty(values[3]))
             {
-                this.SatelliteCount = Int32.Parse(values[3]);
+                this.SatelliteCount = Int32.Parse(values[3], numberFormat);
             }
 
             for (int i = 4, count = 0; count < (values.Length / 4) - 1; i += 4, count++)
             {
                 Satellite satellite = new Satellite();
-                satellite.Prn = Int32.Parse(values[i]);
-                satellite.Elevation = Int32.Parse(values[i + 1]);
-                satellite.Azimuth = Int32.Parse(values[i + 2]);
+                satellite.Prn = Int32.Parse(values[i], numberFormat);
+                satellite.Elevation = Int32.Parse(values[i + 1], numberFormat);
+                satellite.Azimuth = Int32.Parse(values[i + 2], numberFormat);
 
                 if (!String.IsNullOrEmpty(values[i + 3]))
                 {
-                    satellite.Snr = Int32.Parse(values[i + 3]);
+                    satellite.Snr = Int32.Parse(values[i + 3], numberFormat);
                 }
 
                 this.Satellites.Add(satellite);

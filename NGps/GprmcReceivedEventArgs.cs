@@ -103,10 +103,10 @@ namespace NGps
             {
                 this.Status = values[2];
             }
-
+            var numberFormat = new NumberFormatInfo { NumberDecimalSeparator = "." };
             if (!String.IsNullOrEmpty(values[3]))
             {
-                this.Latitude = Single.Parse(values[3].Substring(0, 2)) + (Single.Parse(values[3].Substring(2, values[3].Length - 2)) / 60.0f);
+                this.Latitude = Single.Parse(values[3].Substring(0, 2), numberFormat) + (Single.Parse(values[3].Substring(2, values[3].Length - 2), numberFormat) / 60.0f);
 
                 if (values[4] == "S")
                 {
@@ -116,7 +116,7 @@ namespace NGps
 
             if (!String.IsNullOrEmpty(values[5]))
             {
-                this.Longitude = Single.Parse(values[5].Substring(0, 3)) + (Single.Parse(values[5].Substring(3, values[5].Length - 3)) / 60.0f);
+                this.Longitude = Single.Parse(values[5].Substring(0, 3), numberFormat) + (Single.Parse(values[5].Substring(3, values[5].Length - 3), numberFormat) / 60.0f);
 
                 if (values[6] == "W")
                 {
@@ -126,17 +126,17 @@ namespace NGps
 
             if (!String.IsNullOrEmpty(values[7]))
             {
-                this.KnotsSpeed = Single.Parse(values[7]);
+                this.KnotsSpeed = Single.Parse(values[7], numberFormat);
             }
 
             if (!String.IsNullOrEmpty(values[8]))
             {
-                this.TrueBearing = Single.Parse(values[8]);
+                this.TrueBearing = Single.Parse(values[8], numberFormat);
             }
 
             if (!String.IsNullOrEmpty(values[10]))
             {
-                this.MagneticVariation = Single.Parse(values[10]);
+                this.MagneticVariation = Single.Parse(values[10], numberFormat);
 
                 if (values[11] == "W")
                 {
